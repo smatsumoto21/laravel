@@ -1,0 +1,53 @@
+◯サーバーの立ち上げ
+D:\laravel\book> を確認して↓
+php artisan serve
+
+◯トップページへのアクセス
+http://localhost:8000/
+http://127.0.0.1:8000/
+
+◯BootstrapのHP
+https://getbootstrap.jp/
+
+◯マイグレーションの実行
+php artisan migrate
+
+◯マイグレーションの取り消し
+直前取り消し：
+php artisan migrate:rollback
+すべて取り消し：
+php artisan migrate:reset
+取り消しした後再度マイグレーションする
+php artisan migrate:refresh
+
+◯コントローラの作成(→app\Http\Controllers\DbController.phpが作成される)
+php artisan make:controller DbController
+
+◯relationの情報
+ユーザー名  relationuser
+パスワード  userpass1234
+
+
+// DbController.phpに記載するSQL文  ==============================================
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Item;
+use App\Models\Category;
+
+class DbController extends Controller
+{
+    //
+    public function index(){
+        $data =[
+            'items' => Item::all(),             // itemsテーブルの全件取得
+            'categories' => Category::all(),    // categoriesテーブルの全件取得
+            'relations' => Item::all()          // 2つのテーブルの内部結合による全件取得
+        ];
+        return view('db.index', $data);
+    }
+}
+
+// DbController.phpに記載するSQL文  ==============================================
